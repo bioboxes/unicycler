@@ -28,7 +28,9 @@ NON_ESSENTIAL_BUILD="
 ESSENTIAL_BUILD="
 	libncurses5-dev
 	openjdk-7-jre-headless
-	python3.4-minimal
+	pigz
+	python${PYTHON_VERSION}-minimal
+	python3-pkg-resources
 	zlib1g-dev"
 
 # Build dependencies
@@ -43,6 +45,7 @@ bowtie2.sh
 pilon.sh
 samtools.sh
 spades.sh
+unicycler.sh
 
 # Clean up dependencies
 apt-get autoremove --purge --yes ${NON_ESSENTIAL_BUILD}
@@ -50,6 +53,9 @@ apt-get clean
 
 # Install required files
 apt-get install --yes --no-install-recommends ${ESSENTIAL_BUILD}
+
+# Spades requires a `python` executable
+ln -s /usr/bin/python${PYTHON_VERSION} /usr/bin/python
 
 rm -rf /var/lib/apt/lists/*
 
