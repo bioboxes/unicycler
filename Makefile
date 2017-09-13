@@ -1,5 +1,5 @@
 env    = PATH=./env/bin:${PATH}
-image  = biobox_testing/shovill
+image  = biobox_testing/unicycler
 
 ssh: env
 	#@$(env) biobox login short_read_assembler $(image)
@@ -12,6 +12,8 @@ ssh: env
 
 test: .image env
 	@$(env) biobox verify short_read_assembler $(image) --verbose
+	@$(env) biobox verify short_read_assembler $(image) --verbose --task=conservative
+	@$(env) biobox verify short_read_assembler $(image) --verbose --task=bold
 
 build: .image
 
